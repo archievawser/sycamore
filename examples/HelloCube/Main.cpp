@@ -1,27 +1,32 @@
 #include <iostream>
+#include "glm/glm.hpp"
+#include "Engine/Application.h"
+#include "Engine/Event.h"
 #include "Core.h"
 
 
-/*
-struct Game : public syc::App
+class TGame : public scm::TApp
 {
-	void Start() override
-	{
-		Pos += glm::vec3(10, 10, 10);
-	}
+	typedef scm::TApp Super;
 
-	void Draw() override
-	{
-		constexpr float pointSize = 1.0f;
-		QuickDraw::Point(pos, pointSize);
-	}
+public:
+	TGame(const char* name, unsigned int width, unsigned int height)
+		: Super(name, width, height)
+	{	}
 
-	glm::vec3 Pos;
+	void Update(float deltaTime) override
+	{
+		std::cout << "Updating" << std::endl;
+	}
 };
-*/
 
 
 int main()
 {
-	test();
+	std::cout << "Running game" << std::endl;
+
+	TGame* game = new TGame("Hello Cube", 1280U, 720U);
+	game->Start();
+
+	std::cout << "Exiting game" << std::endl;
 }

@@ -1,6 +1,11 @@
 ﻿{
   "version": 3,
 
+  "cmakeMinimumRequired": {
+	"major": 3,
+	"minor": 8
+  },
+
   "configurePresets": [
 	{
 	  "name": "windows-base",
@@ -10,7 +15,8 @@
 	  "installDir": "${sourceDir}/build/install/${presetName}",
 	  "cacheVariables": {
 		"CMAKE_C_COMPILER": "cl.exe",
-		"CMAKE_CXX_COMPILER": "cl.exe"
+		"CMAKE_CXX_COMPILER": "cl.exe",
+		"CMAKE_CXX_STANDARD": "20"
 	  },
 	  "condition": {
 		"type": "equals",
@@ -44,7 +50,7 @@
 	{
 	  "name": "x64-examples",
 	  "displayName": "x64 Examples",
-	  "inherits": "x64-release",
+	  "inherits": "x64-debug",
 	  "cacheVariables": {
 		"BUILD_EXAMPLES": true
 	  }
