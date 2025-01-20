@@ -1,9 +1,13 @@
 #pragma once
+#include "Core.h"
 
 
-class TGameComponent
+namespace SYCAMORE_NAMESPACE
 {
-public:
-	virtual void BeginPlay();
-	virtual void Tick(double dt);
-};
+	class TGameComponent
+	{
+	public:
+		virtual void BeginPlay();
+		virtual void Tick(double dt);
+	};
+}

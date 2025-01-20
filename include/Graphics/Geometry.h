@@ -6,28 +6,31 @@
 #include "Core.h"
 
 
-class TGeometry
+namespace SYCAMORE_NAMESPACE
 {
-public:
-	TGeometry(const TVertex* vertices, std::size_t vertexCount);
-	TGeometry();
-	TGeometry(TGeometry& other) = delete;
-	TGeometry& operator=(TGeometry& other) = delete;
-	~TGeometry();
-
-	FORCEINLINE std::size_t GetVertexCount() const
+	class TGeometry
 	{
-		return mVertexCount;
-	}
+	public:
+		TGeometry(const TVertex* vertices, std::size_t vertexCount);
+		TGeometry();
+		TGeometry(TGeometry& other) = delete;
+		TGeometry& operator=(TGeometry& other) = delete;
+		~TGeometry();
 
-	FORCEINLINE void Bind()
-	{
-		glBindVertexArray(mVaoId);
-	}
+		FORCEINLINE std::size_t GetVertexCount() const
+		{
+			return mVertexCount;
+		}
 
-private:
-	std::size_t mVertexCount;
-	GLuint mVaoId;
-	GLuint mVboId;
-	bool mValid;
-};
+		FORCEINLINE void Bind()
+		{
+			glBindVertexArray(mVaoId);
+		}
+
+	private:
+		std::size_t mVertexCount;
+		GLuint mVaoId;
+		GLuint mVboId;
+		bool mValid;
+	};
+}

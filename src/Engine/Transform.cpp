@@ -1,7 +1,10 @@
 #include "Engine/Transform.h"
 
 
-TTransform::TTransform()
+namespace SYCAMORE_NAMESPACE
 {
+	TTransform::TTransform()
+	{
 
+	}
 }

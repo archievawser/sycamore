@@ -4,23 +4,26 @@
 #include "Core.h"
 
 
-class TCamera : public TGameObject
+namespace SYCAMORE_NAMESPACE
 {
-public:
-	TCamera();
-
-	void BeginPlay() override;
-	void Tick(double dt) override;
-
-	FORCEINLINE const glm::mat4& GetProjectionMatrix()
+	class TCamera : public TGameObject
 	{
-		return mProjection;
-	}
+	public:
+		TCamera();
 
-	static TCamera CurrentCamera;
+		void BeginPlay() override;
+		void Tick(double dt) override;
 
-private:
-	float mYaw;
-	float mPitch;
-	glm::mat4 mProjection;
-};
+		FORCEINLINE const glm::mat4& GetProjectionMatrix()
+		{
+			return mProjection;
+		}
+
+		static TCamera CurrentCamera;
+
+	private:
+		float mYaw;
+		float mPitch;
+		glm::mat4 mProjection;
+	};
+}

@@ -1,10 +1,14 @@
 #pragma once
 #include "glm/glm.hpp"
+#include "Core.h"
 
 
-struct TVertex
+namespace SYCAMORE_NAMESPACE
 {
-	glm::vec3 Position;
-	glm::vec3 Normal;
-	glm::vec2 Uv;
-};
+	struct TVertex
+	{
+		glm::vec3 Position;
+		glm::vec3 Normal;
+		glm::vec2 Uv;
+	};
+}

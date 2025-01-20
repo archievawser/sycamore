@@ -3,34 +3,38 @@
 #include <typeindex>
 #include "Engine/GameComponent.h"
 #include "Engine/Transform.h"
+#include "Core.h"
 
 
-typedef int TGameObjectId;
-
-
-class TGameObject
+namespace SYCAMORE_NAMESPACE
 {
-	typedef TGameObject Super;
+	typedef int TGameObjectId;
 
-public:
-	TGameObject();
-	virtual ~TGameObject();
 
-	virtual void BeginPlay();
-	virtual void Tick(double dt);
-
-	template<typename ComponentType, typename... ArgType>
-	void AddComponent(ArgType&&... constructorArgs)
+	class TGameObject
 	{
-		// Ensure there is only one component of any component type
-		assert(mComponents.find(typeid(ComponentType)) == mComponents.end());
+		typedef TGameObject Super;
 
-		mComponents[typeid(ComponentType)] = new ComponentType(constructorArgs...);
-	}
+	public:
+		TGameObject();
+		virtual ~TGameObject();
 
-	TTransform Transform;
-	TGameObjectId Id;
+		virtual void BeginPlay();
+		virtual void Tick(double dt);
 
-private:
-	std::unordered_map<std::type_index, TGameComponent*> mComponents;
-};
+		template<typename ComponentType, typename... ArgType>
+		void AddComponent(ArgType&&... constructorArgs)
+		{
+			// Ensure there is only one component of any component type
+			assert(mComponents.find(typeid(ComponentType)) == mComponents.end());
+
+			mComponents[typeid(ComponentType)] = new ComponentType(constructorArgs...);
+		}
+
+		TTransform Transform;
+		TGameObjectId Id;
+
+	private:
+		std::unordered_map<std::type_index, TGameComponent*> mComponents;
+	};
+}

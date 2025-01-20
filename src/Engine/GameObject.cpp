@@ -2,27 +2,30 @@
 #include <functional>
 
 
-TGameObject::TGameObject()
-{ }
-
-
-TGameObject::~TGameObject()
-{ }
-
-
-void TGameObject::BeginPlay()
+namespace SYCAMORE_NAMESPACE
 {
-	for (const auto& [typeId, component] : mComponents)
+	TGameObject::TGameObject()
+	{ }
+
+
+	TGameObject::~TGameObject()
+	{ }
+
+
+	void TGameObject::BeginPlay()
 	{
-		component->BeginPlay();
+		for (const auto& [typeId, component] : mComponents)
+		{
+			component->BeginPlay();
+		}
 	}
-}
 
 
-void TGameObject::Tick(double dt)
-{
-	for (const auto& [typeId, component]: mComponents)
+	void TGameObject::Tick(double dt)
 	{
-		component->Tick(dt);
+		for (const auto& [typeId, component]: mComponents)
+		{
+			component->Tick(dt);
+		}
 	}
 }

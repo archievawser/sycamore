@@ -1,29 +1,33 @@
 #include "Graphics/Geometry.h"
+#include "Graphics/Vertex.h"
 
 
-TGeometry::TGeometry(const TVertex* vertices, std::size_t vertexCount)
-	: mVaoId(0), mVboId(0), mValid(false), mVertexCount(vertexCount)
+namespace SYCAMORE_NAMESPACE
 {
-	glGenVertexArrays(1, &mVaoId);
-	glBindVertexArray(mVaoId);
+	TGeometry::TGeometry(const TVertex* vertices, std::size_t vertexCount)
+		: mVaoId(0), mVboId(0), mValid(false), mVertexCount(vertexCount)
+	{
+		glGenVertexArrays(1, &mVaoId);
+		glBindVertexArray(mVaoId);
 
-	glGenBuffers(1, &mVboId);
-	glBindBuffer(GL_ARRAY_BUFFER, mVboId);
-	glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(TVertex), vertices, GL_STATIC_DRAW);
+		glGenBuffers(1, &mVboId);
+		glBindBuffer(GL_ARRAY_BUFFER, mVboId);
+		glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(TVertex), vertices, GL_STATIC_DRAW);
 
-	mValid = true;
-}
-
-
-TGeometry::TGeometry()
-	: mVaoId(0), mVboId(0), mValid(false), mVertexCount(0)
-{ }
+		mValid = true;
+	}
 
 
-TGeometry::~TGeometry()
-{
-	mValid = false;
+	TGeometry::TGeometry()
+		: mVaoId(0), mVboId(0), mValid(false), mVertexCount(0)
+	{ }
 
-	glDeleteVertexArrays(1, &mVaoId);
-	glDeleteBuffers(1, &mVboId);
+
+	TGeometry::~TGeometry()
+	{
+		mValid = false;
+
+		glDeleteVertexArrays(1, &mVaoId);
+		glDeleteBuffers(1, &mVboId);
+	}
 }

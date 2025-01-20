@@ -6,37 +6,40 @@
 #include "Core.h"
 
 
-class TInput
+namespace SYCAMORE_NAMESPACE
 {
-public:
-	TInput(GLFWwindow* window);
-
-	void Tick(double dt);
-
-	FORCEINLINE glm::vec2 GetMousePosition()
+	class TInput
 	{
-		return mMousePosition;
-	}
+	public:
+		TInput(GLFWwindow* window);
 
-	FORCEINLINE glm::vec2 GetMouseDelta()
-	{
-		return mMouseDelta;
-	}
+		void Tick(double dt);
 
-	FORCEINLINE bool IsKeyDown(int keyCode)
-	{
-		return mPressedKeys.find(keyCode) != mPressedKeys.end() && mPressedKeys[keyCode];
-	}
+		FORCEINLINE glm::vec2 GetMousePosition()
+		{
+			return mMousePosition;
+		}
 
-private:
-	static void onKeyEvent(GLFWwindow* window, int key, int scanCode, int action, int mods);
-	static void onMouseMove(GLFWwindow* window, double x, double y);
+		FORCEINLINE glm::vec2 GetMouseDelta()
+		{
+			return mMouseDelta;
+		}
 
-	std::unordered_map<int, bool> mPressedKeys;
-	glm::vec2 mMousePosition;
-	glm::vec2 mLastMousePosition;
-	glm::vec2 mMouseDelta;
-};
+		FORCEINLINE bool IsKeyDown(int keyCode)
+		{
+			return mPressedKeys.find(keyCode) != mPressedKeys.end() && mPressedKeys[keyCode];
+		}
+
+	private:
+		static void onKeyEvent(GLFWwindow* window, int key, int scanCode, int action, int mods);
+		static void onMouseMove(GLFWwindow* window, double x, double y);
+
+		std::unordered_map<int, bool> mPressedKeys;
+		glm::vec2 mMousePosition;
+		glm::vec2 mLastMousePosition;
+		glm::vec2 mMouseDelta;
+	};
 
 
-extern TInput* Input;
+	extern TInput* Input;
+}

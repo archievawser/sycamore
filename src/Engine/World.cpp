@@ -1,28 +1,31 @@
 #include "Engine/World.h"
 
 
-TWorld::TWorld()
+namespace SYCAMORE_NAMESPACE
 {
-	Camera = Instantiate<TCamera>();
-}
-
-
-TWorld::~TWorld()
-{ 
-	delete Camera;
-}
-
-
-void TWorld::BeginPlay()
-{
-
-}
-
-
-void TWorld::Tick(double dt)
-{
-	for (auto [id, gameObject] : mGameObjects)
+	TWorld::TWorld()
 	{
-		gameObject->Tick(dt);
+		Camera = Instantiate<TCamera>();
+	}
+
+
+	TWorld::~TWorld()
+	{ 
+		delete Camera;
+	}
+
+
+	void TWorld::BeginPlay()
+	{
+
+	}
+
+
+	void TWorld::Tick(double dt)
+	{
+		for (auto [id, gameObject] : mGameObjects)
+		{
+			gameObject->Tick(dt);
+		}
 	}
 }

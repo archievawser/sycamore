@@ -6,16 +6,19 @@
 #include "Engine/Transform.h"
 
 
-class TMeshComponent
+namespace SYCAMORE_NAMESPACE
 {
-public:
-	TMeshComponent(std::shared_ptr<TGeometry> geometry, std::shared_ptr<TMaterial> material);
-	TMeshComponent();
-	TMeshComponent(TMeshComponent& other) = delete;
-	TMeshComponent& operator=(TMeshComponent& other) = delete;
-	~TMeshComponent();
+	class TMeshComponent
+	{
+	public:
+		TMeshComponent(std::shared_ptr<TGeometry> geometry, std::shared_ptr<TMaterial> material);
+		TMeshComponent();
+		TMeshComponent(TMeshComponent& other) = delete;
+		TMeshComponent& operator=(TMeshComponent& other) = delete;
+		~TMeshComponent();
 
-	TTransform Transform;
-	std::shared_ptr<TGeometry> Geometry;
-	std::shared_ptr<TMaterial> Material;
-};
+		TTransform Transform;
+		std::shared_ptr<TGeometry> Geometry;
+		std::shared_ptr<TMaterial> Material;
+	};
+}

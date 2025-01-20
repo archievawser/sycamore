@@ -9,46 +9,49 @@
 #include "Engine/Camera.h"
 
 
-template<typename T>
-concept Instantiable = std::is_base_of<TGameObject, T>::value;
-
-
-class TWorld
+namespace SYCAMORE_NAMESPACE
 {
-public:
-	TWorld();
-	virtual ~TWorld();
-	virtual void BeginPlay();
-	virtual void Tick(double dt);
+	template<typename T>
+	concept Instantiable = std::is_base_of<TGameObject, T>::value;
+
+
+	class TWorld
+	{
+	public:
+		TWorld();
+		virtual ~TWorld();
+		virtual void BeginPlay();
+		virtual void Tick(double dt);
 	
+		template<Instantiable T, typename... ArgType>
+		T* Instantiate(ArgType... args);
+
+		TCamera* Camera;
+
+	private:
+		std::stack<TGameObjectId> mFreeIds;
+		std::unordered_map<TGameObjectId, TGameObject*> mGameObjects;
+		TGameObjectId mNextUnusedId = 0;
+	};
+
+
 	template<Instantiable T, typename... ArgType>
-	T* Instantiate(ArgType... args);
-
-	TCamera* Camera;
-
-private:
-	std::stack<TGameObjectId> mFreeIds;
-	std::unordered_map<TGameObjectId, TGameObject*> mGameObjects;
-	TGameObjectId mNextUnusedId = 0;
-};
-
-
-template<Instantiable T, typename... ArgType>
-T* TWorld::Instantiate(ArgType... args)
-{
-	TGameObjectId nextId;
-
-	if (mFreeIds.empty())
+	T* TWorld::Instantiate(ArgType... args)
 	{
-		nextId = mNextUnusedId++;
-	}
-	else
-	{
-		nextId = mFreeIds.top();
-		mFreeIds.pop();
-	}
+		TGameObjectId nextId;
 
-	mGameObjects[nextId] = (TGameObject*)new T(args...);
-	mGameObjects[nextId]->Id = nextId;
-	return (T*)(mGameObjects[nextId]);
+		if (mFreeIds.empty())
+		{
+			nextId = mNextUnusedId++;
+		}
+		else
+		{
+			nextId = mFreeIds.top();
+			mFreeIds.pop();
+		}
+
+		mGameObjects[nextId] = (TGameObject*)new T(args...);
+		mGameObjects[nextId]->Id = nextId;
+		return (T*)(mGameObjects[nextId]);
+	}
 }
