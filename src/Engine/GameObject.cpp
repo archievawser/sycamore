@@ -1,11 +1,14 @@
 #include "Engine/GameObject.h"
+#include "Engine/Application.h"
 #include <functional>
 
 
 namespace SYCAMORE_NAMESPACE
 {
 	TGameObject::TGameObject()
-	{ }
+	{ 
+		OnUpdate = std::unique_ptr<TEventListener<float>>(App->OnUpdate.Connect(std::bind_front(&TGameObject::Update, this)));
+	}
 
 
 	TGameObject::~TGameObject()
@@ -21,7 +24,7 @@ namespace SYCAMORE_NAMESPACE
 	}
 
 
-	void TGameObject::Tick(double dt)
+	void TGameObject::Update(float dt)
 	{
 		for (const auto& [typeId, component]: mComponents)
 		{

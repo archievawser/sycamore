@@ -1,4 +1,5 @@
 #pragma once
+
 #include <vector>
 #include <unordered_map>
 #include <concepts>
@@ -21,7 +22,7 @@ namespace SYCAMORE_NAMESPACE
 		TWorld();
 		virtual ~TWorld();
 		virtual void BeginPlay();
-		virtual void Tick(double dt);
+		virtual void Update(float dt);
 	
 		template<Instantiable T, typename... ArgType>
 		T* Instantiate(ArgType... args);

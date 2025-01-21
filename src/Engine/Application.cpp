@@ -13,15 +13,25 @@ namespace SYCAMORE_NAMESPACE
 
 
 	TApp::TApp(const char* title, unsigned int width, unsigned int height)
+		: WindowWidth(width), WindowHeight(height)
 	{
 		assert(("Ensure only one application instance is valid at a time", App == nullptr));
 
 		SetupWindowing();
 		mWindow = CreateWindow(title, width, height);
+		Input = new TInput(mWindow);
+
+		Renderer.Setup();
 
 		SetupEvents();
 
 		App = this;
+	}
+
+
+	TApp::~TApp()
+	{
+		delete CurrentCamera;
 	}
 
 
@@ -31,25 +41,21 @@ namespace SYCAMORE_NAMESPACE
 
 		glfwWindowHint(GLFW_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_VERSION_MINOR, 2);
-		glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
 	}
 
 
 	void TApp::SetupEvents()
 	{
-		OnUpdateListener = OnUpdate.Connect([this](float dt) {
-			Update(dt);
-		});
+		OnUpdateListener = OnUpdate.Connect(std::bind_front(&TApp::Update, this));
+		OnRenderListener = Renderer.OnRender.Connect(std::bind_front(&TApp::Render, this));
+		Input->OnUpdateListener = OnUpdate.Connect(std::bind_front(&TInput::Update, Input));
 	}
 
 
 	GLFWwindow* TApp::CreateWindow(const char* title, unsigned int width, unsigned int height)
 	{
 		GLFWwindow* window = glfwCreateWindow(width, height, title, nullptr, nullptr);
-
 		glfwMakeContextCurrent(window);
-
-		glewInit();
 
 		return window;
 	}
@@ -57,6 +63,8 @@ namespace SYCAMORE_NAMESPACE
 
 	void TApp::Start()
 	{
+		CurrentCamera = new TCamera;
+
 		while (!ShouldClose())
 		{
 			Tick();
@@ -70,12 +78,14 @@ namespace SYCAMORE_NAMESPACE
 
 		glfwPollEvents();
 
-		glClear(GL_COLOR_BUFFER_BIT);
-		
+		// Dispatch update
 		float deltaTime = frameTimer.GetElapsed();
 		frameTimer.Restart();
 
 		OnUpdate.Dispatch(deltaTime);
+
+		// Begin drawing
+		Renderer.Render();
 	
 		glfwSwapBuffers(mWindow);
 	}
@@ -85,4 +95,10 @@ namespace SYCAMORE_NAMESPACE
 	{
 
 	}
+
+
+    void TApp::Render()
+    {
+
+    }
 }

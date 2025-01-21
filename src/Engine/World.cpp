@@ -21,11 +21,11 @@ namespace SYCAMORE_NAMESPACE
 	}
 
 
-	void TWorld::Tick(double dt)
+	void TWorld::Update(float dt)
 	{
 		for (auto [id, gameObject] : mGameObjects)
 		{
-			gameObject->Tick(dt);
+			gameObject->Update(dt);
 		}
 	}
 }

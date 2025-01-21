@@ -1,4 +1,5 @@
 #include "Engine/Input.h"
+#include "Engine/Application.h"
 #include "Core.h"
 
 
@@ -8,39 +9,35 @@ namespace SYCAMORE_NAMESPACE
 		: mLastMousePosition(), mMousePosition(), mMouseDelta()
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-		glfwSetCursorPosCallback(window, onMouseMove);
-		glfwSetKeyCallback(window, onKeyEvent);
+		glfwSetCursorPosCallback(window, OnMouseMove);
+		glfwSetKeyCallback(window, OnKeyEvent);
 	}
 
 
-	void TInput::Tick(double dt)
+	void TInput::Update(float dt)
 	{
 		mMouseDelta = mMousePosition - mLastMousePosition;
 		mLastMousePosition = mMousePosition;
 	}
 
 
-	void TInput::onKeyEvent(GLFWwindow* window, int key, int scanCode, int action, int mods)
+	void TInput::OnKeyEvent(GLFWwindow* window, int key, int scanCode, int action, int mods)
 	{
 		switch (action)
 		{
 		case GLFW_PRESS:
-			Input->mPressedKeys[key] = true;
+			App->Input->mPressedKeys[key] = true;
 			break;
 		
 		case GLFW_RELEASE:
-			Input->mPressedKeys[key] = false;
+			App->Input->mPressedKeys[key] = false;
 			break;
 		}
 	}
 
 
-	void TInput::onMouseMove(GLFWwindow* window, double x, double y)
+	void TInput::OnMouseMove(GLFWwindow* window, double x, double y)
 	{
-		Input->mMousePosition = glm::vec2(x, y);
+		App->Input->mMousePosition = glm::vec2(x, y);
 	}
-
-
-	TInput* Input = nullptr;
 }

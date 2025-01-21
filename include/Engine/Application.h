@@ -1,7 +1,15 @@
-#include "Core.h"
-#include "Engine/Event.h"
+#pragma once
+
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "Core.h"
+#include "Engine/Event.h"
+#include "Engine/Notify.h"
+#include "Engine/Input.h"
+#include "Engine/Camera.h"
+#include "Graphics/Renderer.h"
 
 
 struct GLFWwindow;
@@ -10,24 +18,57 @@ struct GLFWwindow;
 namespace SYCAMORE_NAMESPACE
 {
 	/**
-	 * @brief The abstract root class of a Sycamore application.
+	 * @brief The root class of a Sycamore application.
 	 */
 	class TApp
 	{
 	public:
+		/**
+		 * @brief Sycamore's entry point
+		 * @param title The title of the app window
+		 * @param width 
+		 * @param height 
+		 */
 		TApp(const char* title, unsigned int width, unsigned int height);
+		~TApp();
 
 		/**
-		 * @brief Called immediately after the engine has initialized
+		 * @brief Called immediately after the engine has initialized.
 		 */
 		virtual void Start();
 		/**
-		 * @brief Called once per frame, prior to rendering
+		 * @brief Runs the core game loop.
 		 */
 		virtual void Tick();
+		/**
+		 * @brief Runs prior to rendering and physics, per-frame code should be used here.
+		 * @param deltaTime 
+		 */
 		virtual void Update(float deltaTime);
+		/**
+		 * @brief Called while rendering, draw calls may be made here.
+		 */
+		virtual void Render();
 
+		/**
+		 * @brief The TCamera instance currently being used for rendering.
+		 */
+		TCamera* CurrentCamera;
+		/**
+		 * @brief The TInput instance which should be used for user input.
+		 */
+		TInput* Input;
+		/**
+		 * @brief The update event.
+		 */
 		TEventDispatcher<float> OnUpdate;
+		/**
+		 * @brief The IRenderer derivative used to draw elements to the current window.
+		 */
+		TGlRenderer Renderer;
+
+		unsigned int WindowWidth;
+		unsigned int WindowHeight;
 
 	private:
 		void SetupEvents();
@@ -40,6 +81,7 @@ namespace SYCAMORE_NAMESPACE
 		}
 
 		TEventListener<float>* OnUpdateListener = nullptr;
+		TNotifyListener* OnRenderListener = nullptr;
 		GLFWwindow* mWindow = nullptr;
 	};
 

@@ -3,7 +3,7 @@
 project ("sycamore")
 
 # Output a static library
-add_library (sycamore STATIC   "include/Core.h"  "include/Graphics/Geometry.h" "include/Graphics/Material.h" "include/Graphics/MeshComponent.h" "include/Graphics/Renderer.h" "include/Graphics/Shader.h" "include/Graphics/Texture.h" "include/Graphics/Vertex.h" "src/Graphics/Geometry.cpp" "src/Graphics/Material.cpp" "src/Graphics/MeshComponent.cpp" "src/Graphics/Renderer.cpp" "src/Graphics/Shader.cpp" "src/Graphics/Texture.cpp" "src/Graphics/Vertex.cpp" "include/Engine/GameComponent.h" "include/Engine/GameObject.h" "include/Engine/Input.h" "include/Engine/Transform.h" "include/Engine/World.h" "src/Engine/GameComponent.cpp" "src/Engine/GameObject.cpp" "src/Engine/Input.cpp" "src/Engine/Transform.cpp" "src/Engine/World.cpp" "src/Engine/Camera.cpp" "include/Engine/Camera.h" "include/ThirdParty/GLFW/glfw3.h" "include/ThirdParty/GLFW/glfw3native.h" "include/ThirdParty/GL/eglew.h" "include/ThirdParty/GL/glew.h" "include/ThirdParty/GL/glxew.h" "include/ThirdParty/GL/wglew.h" "include/Engine/Application.h" "src/Engine/Application.cpp" "include/Sycamore.h" "include/Engine/Event.h" "include/Engine/Stopwatch.h" "src/Engine/Stopwatch.cpp")
+add_library (sycamore STATIC "include/Core.h"  "include/Graphics/Geometry.h" "include/Graphics/Material.h" "include/Graphics/MeshComponent.h" "include/Graphics/Renderer.h" "include/Graphics/Shader.h" "include/Graphics/Texture.h" "include/Graphics/Vertex.h" "src/Graphics/Geometry.cpp" "src/Graphics/Material.cpp" "src/Graphics/MeshComponent.cpp" "src/Graphics/Renderer.cpp" "src/Graphics/Shader.cpp" "src/Graphics/Texture.cpp" "src/Graphics/Vertex.cpp" "include/Engine/GameComponent.h" "include/Engine/GameObject.h" "include/Engine/Input.h" "include/Engine/Transform.h" "include/Engine/World.h" "src/Engine/GameComponent.cpp" "src/Engine/GameObject.cpp" "src/Engine/Input.cpp" "src/Engine/Transform.cpp" "src/Engine/World.cpp" "src/Engine/Camera.cpp" "include/Engine/Camera.h" "include/ThirdParty/GLFW/glfw3.h" "include/ThirdParty/GLFW/glfw3native.h" "include/ThirdParty/GL/eglew.h" "include/ThirdParty/GL/glew.h" "include/ThirdParty/GL/glxew.h" "include/ThirdParty/GL/wglew.h" "include/Engine/Application.h" "src/Engine/Application.cpp" "include/Sycamore.h" "include/Engine/Event.h" "include/Engine/Stopwatch.h" "src/Engine/Stopwatch.cpp" "include/Engine/Notify.h" "src/Engine/Notify.cpp")
 
 # Use C++20
 set_property(TARGET sycamore PROPERTY CXX_STANDARD 20)
@@ -28,7 +28,7 @@ target_include_directories(sycamore PUBLIC "./include/ThirdParty/")
 target_include_directories(sycamore PUBLIC "./include/ThirdParty/glm/")
 
 # Link against static libraries
-target_link_libraries(sycamore PUBLIC glew32s glfw3 opengl32)
+target_link_libraries(sycamore PUBLIC glew32s glfw3 opengl32 assimp-vc143-mtd)
 add_compile_definitions(GLEW_STATIC)
 
 # Optionally build example executables
@@ -37,4 +37,10 @@ if (BUILD_EXAMPLES)
 
 	add_executable (sycamore_examples "examples/HelloCube/Main.cpp")
 	target_link_libraries(sycamore_examples sycamore)
+
+	# Transfer runtime dependencies (DLLs and the like) to binary output directory
+	add_custom_command(TARGET sycamore_examples POST_BUILD 
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+		"${CMAKE_CURRENT_SOURCE_DIR}/assimp-vc143-mtd.dll"              
+		$<TARGET_FILE_DIR:sycamore_examples>)
 endif ()

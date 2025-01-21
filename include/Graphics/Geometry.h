@@ -1,4 +1,5 @@
 #pragma once
+
 #include <vector>
 #include <cstddef>
 #include "GL/glew.h"
@@ -11,7 +12,7 @@ namespace SYCAMORE_NAMESPACE
 	class TGeometry
 	{
 	public:
-		TGeometry(const TVertex* vertices, std::size_t vertexCount);
+		TGeometry(const TVertex* vertices, std::size_t vertexCount, const unsigned int* indices, std::size_t indexCount);
 		TGeometry();
 		TGeometry(TGeometry& other) = delete;
 		TGeometry& operator=(TGeometry& other) = delete;
@@ -19,7 +20,7 @@ namespace SYCAMORE_NAMESPACE
 
 		FORCEINLINE std::size_t GetVertexCount() const
 		{
-			return mVertexCount;
+			return mIndexCount;
 		}
 
 		FORCEINLINE void Bind()
@@ -28,8 +29,9 @@ namespace SYCAMORE_NAMESPACE
 		}
 
 	private:
-		std::size_t mVertexCount;
+		std::size_t mIndexCount;
 		GLuint mVaoId;
+		GLuint mIboId;
 		GLuint mVboId;
 		bool mValid;
 	};

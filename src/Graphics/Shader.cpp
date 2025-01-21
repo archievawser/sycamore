@@ -38,6 +38,7 @@ namespace SYCAMORE_NAMESPACE
 
 	std::shared_ptr<TShader> TShader::Load(const char* fragPath, const char* vertPath)
 	{
+		std::cout << (std::filesystem::current_path()) << std::endl;
 		assert(std::filesystem::exists(fragPath));
 		assert(std::filesystem::exists(vertPath));
 
