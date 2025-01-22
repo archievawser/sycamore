@@ -9,7 +9,7 @@ namespace SYCAMORE_NAMESPACE
 	}
 
 
-	TMaterial::TMaterial(std::shared_ptr<TShader> shader)
+	TMaterial::TMaterial(TShader* shader)
 		: Shader(shader)
 	{
 	}

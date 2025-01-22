@@ -14,6 +14,7 @@ namespace SYCAMORE_NAMESPACE
 		glEnable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 		glClearColor(0.04f, 0.04f, 0.04f, 1.0f);
+		glEnable(GL_MULTISAMPLE);
 	}
 
 
@@ -31,7 +32,7 @@ namespace SYCAMORE_NAMESPACE
 		target.Material->Shader->Bind();
 
 		// Set model-view-projection matrix
-		glm::mat4 mvp = App->CurrentCamera->GetProjectionMatrix() * App->CurrentCamera->Transform.GetMatrix() * target.Transform.GetMatrix();
+		glm::mat4 mvp = GApp->CurrentCamera->GetProjectionMatrix() * GApp->CurrentCamera->Transform.GetMatrix() * target.Transform.GetMatrix();
 		target.Material->Shader->SetUniform("mvp", mvp);
 
 		// Bind textures to their slots

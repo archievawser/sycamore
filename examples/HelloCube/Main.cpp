@@ -1,12 +1,15 @@
 #include <iostream>
 #include <memory>
+#include <string>
 #include "glm/glm.hpp"
 #include "Engine/Application.h"
 #include "Graphics/MeshComponent.h"
 #include "Graphics/Vertex.h"
 #include "Graphics/Material.h"
 #include "Graphics/Shader.h"
+#include "Graphics/Geometry.h"
 #include "Engine/Event.h"
+#include "Engine/Assets.h"
 #include "Core.h"
 
 
@@ -21,10 +24,11 @@ public:
 
 	void Start() override
 	{
-		auto material = std::make_shared<scm::TMaterial>(scm::TShader::Load("../../assets/flat-frag.glsl", "../../assets/flat-vert.glsl"));
+		scm::TAssetManager::Directory = "../assets/";
+		auto material = scm::TAssetManager::Load<scm::TMaterial>("flat.glsl");
 
-		cube = scm::TMeshComponent::Load("../../assets/cube.obj");
-		cube->SetMaterial(material);
+		std::shared_ptr<scm::TGeometry> geom(scm::TAssetManager::Load<scm::TGeometry>("cube.obj"));
+		cube = new scm::TMeshComponent(geom, material);
 
 		Super::Start();
 	}
@@ -34,11 +38,15 @@ public:
 		constexpr float rotSpeed = 0.5f;
 
 		cube->Transform.Rotate(glm::vec3(1.0f), rotSpeed * deltaTime);
+
+		Super::Update(deltaTime);
 	}
 
 	void Render() override
 	{
 		Renderer.Draw(*cube);
+
+		Super::Render();
 	}
 
 	scm::TMeshComponent* cube;
@@ -49,6 +57,6 @@ int main()
 {
 	std::cout << "Running game" << std::endl;
 
-	TGame* game = new TGame("Hello Cube", 1280U, 720U);
+	TGame* game = new TGame("Hello Cube", 1920U, 1080U);
 	game->Start();
 }

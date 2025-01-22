@@ -7,7 +7,7 @@ namespace SYCAMORE_NAMESPACE
 {
 	TGameObject::TGameObject()
 	{ 
-		OnUpdate = std::unique_ptr<TEventListener<float>>(App->OnUpdate.Connect(std::bind_front(&TGameObject::Update, this)));
+		OnUpdate = std::unique_ptr<TEventListener<float>>(GApp->OnUpdate.Connect(std::bind_front(&TGameObject::Update, this)));
 	}
 
 

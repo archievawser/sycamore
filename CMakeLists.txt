@@ -2,8 +2,13 @@
 
 project ("sycamore")
 
+# Set output directories
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
+
 # Output a static library
-add_library (sycamore STATIC "include/Core.h"  "include/Graphics/Geometry.h" "include/Graphics/Material.h" "include/Graphics/MeshComponent.h" "include/Graphics/Renderer.h" "include/Graphics/Shader.h" "include/Graphics/Texture.h" "include/Graphics/Vertex.h" "src/Graphics/Geometry.cpp" "src/Graphics/Material.cpp" "src/Graphics/MeshComponent.cpp" "src/Graphics/Renderer.cpp" "src/Graphics/Shader.cpp" "src/Graphics/Texture.cpp" "src/Graphics/Vertex.cpp" "include/Engine/GameComponent.h" "include/Engine/GameObject.h" "include/Engine/Input.h" "include/Engine/Transform.h" "include/Engine/World.h" "src/Engine/GameComponent.cpp" "src/Engine/GameObject.cpp" "src/Engine/Input.cpp" "src/Engine/Transform.cpp" "src/Engine/World.cpp" "src/Engine/Camera.cpp" "include/Engine/Camera.h" "include/ThirdParty/GLFW/glfw3.h" "include/ThirdParty/GLFW/glfw3native.h" "include/ThirdParty/GL/eglew.h" "include/ThirdParty/GL/glew.h" "include/ThirdParty/GL/glxew.h" "include/ThirdParty/GL/wglew.h" "include/Engine/Application.h" "src/Engine/Application.cpp" "include/Sycamore.h" "include/Engine/Event.h" "include/Engine/Stopwatch.h" "src/Engine/Stopwatch.cpp" "include/Engine/Notify.h" "src/Engine/Notify.cpp")
+add_library (sycamore STATIC "include/Core.h"  "include/Graphics/Geometry.h" "include/Graphics/Material.h" "include/Graphics/MeshComponent.h" "include/Graphics/Renderer.h" "include/Graphics/Shader.h" "include/Graphics/Texture.h" "include/Graphics/Vertex.h" "src/Graphics/Geometry.cpp" "src/Graphics/Material.cpp" "src/Graphics/MeshComponent.cpp" "src/Graphics/Renderer.cpp" "src/Graphics/Shader.cpp" "src/Graphics/Texture.cpp" "src/Graphics/Vertex.cpp" "include/Engine/GameComponent.h" "include/Engine/GameObject.h" "include/Engine/Input.h" "include/Engine/Transform.h" "include/Engine/World.h" "src/Engine/GameComponent.cpp" "src/Engine/GameObject.cpp" "src/Engine/Input.cpp" "src/Engine/Transform.cpp" "src/Engine/World.cpp" "src/Engine/Camera.cpp" "include/Engine/Camera.h" "include/ThirdParty/GLFW/glfw3.h" "include/ThirdParty/GLFW/glfw3native.h" "include/ThirdParty/GL/eglew.h" "include/ThirdParty/GL/glew.h" "include/ThirdParty/GL/glxew.h" "include/ThirdParty/GL/wglew.h" "include/Engine/Application.h" "src/Engine/Application.cpp" "include/Sycamore.h" "include/Engine/Event.h" "include/Engine/Stopwatch.h" "src/Engine/Stopwatch.cpp" "include/Engine/Notify.h" "src/Engine/Notify.cpp" "include/Engine/Assets.h")
 
 # Use C++20
 set_property(TARGET sycamore PROPERTY CXX_STANDARD 20)

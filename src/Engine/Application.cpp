@@ -9,13 +9,13 @@
 
 namespace SYCAMORE_NAMESPACE
 {
-	TApp* App = nullptr;
+	TApp* GApp = nullptr;
 
 
 	TApp::TApp(const char* title, unsigned int width, unsigned int height)
 		: WindowWidth(width), WindowHeight(height)
 	{
-		assert(("Ensure only one application instance is valid at a time", App == nullptr));
+		assert(("Ensure only one application instance is valid at a time", GApp == nullptr));
 
 		SetupWindowing();
 		mWindow = CreateWindow(title, width, height);
@@ -25,7 +25,7 @@ namespace SYCAMORE_NAMESPACE
 
 		SetupEvents();
 
-		App = this;
+		GApp = this;
 	}
 
 
@@ -41,6 +41,7 @@ namespace SYCAMORE_NAMESPACE
 
 		glfwWindowHint(GLFW_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_VERSION_MINOR, 2);
+		glfwWindowHint(GLFW_SAMPLES, 4);
 	}
 
 

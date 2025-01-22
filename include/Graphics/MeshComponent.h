@@ -5,6 +5,7 @@
 #include "Graphics/Material.h"
 #include "Graphics/Texture.h"
 #include "Engine/Transform.h"
+#include "Core.h"
 
 
 namespace SYCAMORE_NAMESPACE
@@ -12,20 +13,17 @@ namespace SYCAMORE_NAMESPACE
 	class TMeshComponent
 	{
 	public:
-		TMeshComponent(std::shared_ptr<TGeometry> geometry, std::shared_ptr<TMaterial> material = nullptr);
-		TMeshComponent();
-		TMeshComponent(TMeshComponent& other) = delete;
-		TMeshComponent& operator=(TMeshComponent& other) = delete;
-		~TMeshComponent();
+		TMeshComponent(std::shared_ptr<TGeometry> geometry, std::shared_ptr<TMaterial> material);
 
-		/**
-		 * @brief Load a mesh file with Assimp.
-		 * @param path 
-		 * @return A heap-allocated mesh component - ensure deletion (ideally via a smart pointer) if the mesh has a lifetime.
-		 */
-		static NODISCARD TMeshComponent* Load(std::string path);
-		void SetGeometry(std::shared_ptr<TGeometry> geometry);
-		void SetMaterial(std::shared_ptr<TMaterial> material);
+		FORCEINLINE void SetGeometry(std::shared_ptr<TGeometry> geometry)
+		{
+			Geometry = geometry;	
+		}
+
+		FORCEINLINE void SetMaterial(std::shared_ptr<TMaterial> material)
+		{
+			Material = material;
+		}
 
 		TTransform Transform;
 		std::shared_ptr<TGeometry> Geometry = nullptr;

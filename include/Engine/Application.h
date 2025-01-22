@@ -86,5 +86,5 @@ namespace SYCAMORE_NAMESPACE
 	};
 
 	
-	extern TApp* App;
+	extern TApp* GApp;
 }

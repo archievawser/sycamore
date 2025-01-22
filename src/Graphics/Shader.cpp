@@ -94,6 +94,7 @@ namespace SYCAMORE_NAMESPACE
 
 			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
 			glGetShaderInfoLog(shader, logLength, NULL, infoLog);
+			std::cout << infoLog << std::endl;
 		}
 
 		return shader;
@@ -117,6 +118,7 @@ namespace SYCAMORE_NAMESPACE
 
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
 			glGetProgramInfoLog(program, logLength, NULL, infoLog);
+			std::cout << infoLog << std::endl;
 		}
 
 		return program;

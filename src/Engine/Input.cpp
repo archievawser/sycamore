@@ -26,11 +26,11 @@ namespace SYCAMORE_NAMESPACE
 		switch (action)
 		{
 		case GLFW_PRESS:
-			App->Input->mPressedKeys[key] = true;
+			GApp->Input->mPressedKeys[key] = true;
 			break;
 		
 		case GLFW_RELEASE:
-			App->Input->mPressedKeys[key] = false;
+			GApp->Input->mPressedKeys[key] = false;
 			break;
 		}
 	}
@@ -38,6 +38,6 @@ namespace SYCAMORE_NAMESPACE
 
 	void TInput::OnMouseMove(GLFWwindow* window, double x, double y)
 	{
-		App->Input->mMousePosition = glm::vec2(x, y);
+		GApp->Input->mMousePosition = glm::vec2(x, y);
 	}
 }
