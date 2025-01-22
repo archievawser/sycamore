@@ -8,6 +8,9 @@ namespace SYCAMORE_NAMESPACE
 		SetGeometry(geometry);
 		SetMaterial(material);
 
+		geometry->Bind();
+		material->Shader->Bind();
+
 		int positionAttribLocation = glGetAttribLocation(Material->Shader->GetId(), "position");
 		glVertexAttribPointer(positionAttribLocation, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
 		glEnableVertexAttribArray(positionAttribLocation);

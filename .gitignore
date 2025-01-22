@@ -1,6 +1,7 @@
 # Development
 /build/
 out/
+bin/
 
 # Visual Studio
 .vs/

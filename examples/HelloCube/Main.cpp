@@ -19,16 +19,22 @@ class TGame : public scm::TApp
 
 public:
 	TGame(const char* name, unsigned int width, unsigned int height)
-		: Super(name, width, height), cube(nullptr)
+		: Super(name, width, height), cube(nullptr), skybox(nullptr)
 	{	}
 
 	void Start() override
 	{
 		scm::TAssetManager::Directory = "../assets/";
 		auto material = scm::TAssetManager::Load<scm::TMaterial>("flat.glsl");
+		auto skymaterial = scm::TAssetManager::Load<scm::TMaterial>("atmosphere.glsl");
 
 		std::shared_ptr<scm::TGeometry> geom(scm::TAssetManager::Load<scm::TGeometry>("cube.obj"));
 		cube = new scm::TMeshComponent(geom, material);
+
+		std::shared_ptr<scm::TGeometry> skygeom(scm::TAssetManager::Load<scm::TGeometry>("icosphere.obj"));
+		skybox = new scm::TMeshComponent(skygeom, skymaterial);
+
+		skybox->Transform.Scale(glm::vec3(500.0f));
 
 		Super::Start();
 	}
@@ -45,11 +51,13 @@ public:
 	void Render() override
 	{
 		Renderer.Draw(*cube);
+		Renderer.Draw(*skybox);
 
 		Super::Render();
 	}
 
 	scm::TMeshComponent* cube;
+	scm::TMeshComponent* skybox;
 };
 
 

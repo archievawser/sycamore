@@ -15,6 +15,7 @@ namespace SYCAMORE_NAMESPACE
 		glDisable(GL_CULL_FACE);
 		glClearColor(0.04f, 0.04f, 0.04f, 1.0f);
 		glEnable(GL_MULTISAMPLE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
 
