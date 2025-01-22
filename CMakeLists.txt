@@ -32,6 +32,8 @@ target_link_libraries(sycamore PUBLIC glew32s glfw3 opengl32 assimp-vc143-mtd)
 add_compile_definitions(GLEW_STATIC)
 
 # Optionally build example executables
+option(BUILD_EXAMPLES "Whether or not the example executables should be built" true)
+
 if (BUILD_EXAMPLES)
 	project ("sycamore_examples")
 

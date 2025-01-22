@@ -31,7 +31,9 @@ public:
 
 	void Update(float deltaTime) override
 	{
+		constexpr float rotSpeed = 0.5f;
 
+		cube->Transform.Rotate(glm::vec3(1.0f), rotSpeed * deltaTime);
 	}
 
 	void Render() override

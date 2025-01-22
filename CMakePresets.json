@@ -34,7 +34,8 @@
 		"strategy": "external"
 	  },
 	  "cacheVariables": {
-		"CMAKE_BUILD_TYPE": "Debug"
+		"CMAKE_BUILD_TYPE": "Debug",
+		"BUILD_EXAMPLES": true
 	  }
 	},
 
@@ -52,7 +53,6 @@
 	  "displayName": "x64 Examples",
 	  "inherits": "x64-debug",
 	  "cacheVariables": {
-		"BUILD_EXAMPLES": true
 	  }
 	}
   ]
