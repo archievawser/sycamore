@@ -15,6 +15,7 @@ namespace SYCAMORE_NAMESPACE
 		TCamera();
 
 		void BeginPlay() override;
+
 		void Update(float dt) override;
 
 		FORCEINLINE const glm::mat4& GetProjectionMatrix()

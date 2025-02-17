@@ -36,7 +36,9 @@ namespace SYCAMORE_NAMESPACE
 
 	private:
 		static void OnKeyEvent(GLFWwindow* window, int key, int scanCode, int action, int mods);
+
 		static void OnMouseMove(GLFWwindow* window, double x, double y);
+
 		std::unordered_map<int, bool> mPressedKeys;
 		glm::vec2 mMousePosition;
 		glm::vec2 mLastMousePosition;

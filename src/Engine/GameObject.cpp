@@ -1,13 +1,15 @@
 #include "Engine/GameObject.h"
 #include "Engine/Application.h"
+#include "Engine/Scene.h"
 #include <functional>
 
 
 namespace SYCAMORE_NAMESPACE
 {
 	TGameObject::TGameObject()
-	{ 
-		OnUpdate = std::unique_ptr<TEventListener<float>>(GApp->OnUpdate.Connect(std::bind_front(&TGameObject::Update, this)));
+		: mScene(nullptr)
+	{
+
 	}
 
 
@@ -30,5 +32,13 @@ namespace SYCAMORE_NAMESPACE
 		{
 			component->Tick(dt);
 		}
+	}
+
+
+	void TGameObject::SetScene(TScene* scene)
+	{
+		mScene = scene;
+
+		OnUpdate = std::unique_ptr<TEventListener<float>>(scene->OnUpdate.Connect(std::bind_front(&TGameObject::Update, this)));
 	}
 }

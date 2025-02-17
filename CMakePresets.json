@@ -10,7 +10,6 @@
 	{
 	  "name": "empty",
 	  "cacheVariables": {
-		"CMAKE_CXX_STANDARD": "20"
 	  }
 	}
   ]

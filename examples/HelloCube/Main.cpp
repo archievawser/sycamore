@@ -8,6 +8,8 @@
 #include "Graphics/Material.h"
 #include "Graphics/Shader.h"
 #include "Graphics/Geometry.h"
+#include "Engine/Scene.h"
+#include "Engine/GameObject.h"
 #include "Engine/Event.h"
 #include "Engine/Assets.h"
 #include "Core.h"
@@ -19,11 +21,20 @@ class TGame : public scm::TApp
 
 public:
 	TGame(const char* name, unsigned int width, unsigned int height)
-		: Super(name, width, height), cube(nullptr), skybox(nullptr)
+		: Super(name, width, height)
 	{	}
+};
 
-	void Start() override
+
+class TPrototypeScene : public scm::TScene
+{
+	typedef scm::TScene Super;
+
+public:
+	void BeginPlay() override
 	{
+		std::cout << "Hasdasd" << std::endl;
+
 		scm::TAssetManager::Directory = "../assets/";
 		auto material = scm::TAssetManager::Load<scm::TMaterial>("flat.glsl");
 		auto skymaterial = scm::TAssetManager::Load<scm::TMaterial>("atmosphere.glsl");
@@ -36,7 +47,7 @@ public:
 
 		skybox->Transform.Scale(glm::vec3(500.0f));
 
-		Super::Start();
+		Super::BeginPlay();
 	}
 
 	void Update(float deltaTime) override
@@ -52,8 +63,6 @@ public:
 	{
 		Renderer.Draw(*cube);
 		Renderer.Draw(*skybox);
-
-		Super::Render();
 	}
 
 	scm::TMeshComponent* cube;
@@ -66,5 +75,6 @@ int main()
 	std::cout << "Running game" << std::endl;
 
 	TGame* game = new TGame("Hello Cube", 1920U, 1080U);
+	game->UseScene<TPrototypeScene>();
 	game->Start();
 }

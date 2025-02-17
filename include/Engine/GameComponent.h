@@ -9,6 +9,7 @@ namespace SYCAMORE_NAMESPACE
 	{
 	public:
 		virtual void BeginPlay();
+
 		virtual void Tick(double dt);
 	};
 }

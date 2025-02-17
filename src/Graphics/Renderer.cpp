@@ -33,7 +33,7 @@ namespace SYCAMORE_NAMESPACE
 		target.Material->Shader->Bind();
 
 		// Set model-view-projection matrix
-		glm::mat4 mvp = GApp->CurrentCamera->GetProjectionMatrix() * GApp->CurrentCamera->Transform.GetMatrix() * target.Transform.GetMatrix();
+		glm::mat4 mvp = GApp->CurrentScene->CurrentCamera->GetProjectionMatrix() * GApp->CurrentScene->CurrentCamera->Transform.GetMatrix() * target.Transform.GetMatrix();
 		target.Material->Shader->SetUniform("mvp", mvp);
 
 		// Bind textures to their slots

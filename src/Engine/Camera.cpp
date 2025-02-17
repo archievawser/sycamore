@@ -9,7 +9,7 @@
 namespace SYCAMORE_NAMESPACE
 {
 	TCamera::TCamera()
-		: Super(), mPitch(0.0f), mYaw(0.0f)
+		: mPitch(0.0f), mYaw(0.0f)
 	{
 		mProjection = glm::perspective(70.0f, (float)GApp->WindowWidth / (float)GApp->WindowHeight, 1.0f, 1000.0f);
 	}
@@ -32,10 +32,9 @@ namespace SYCAMORE_NAMESPACE
 		targetPitch -= e.y * 0.2f;
 		targetYaw += e.x * 0.2f;
 
+		targetPitch = std::clamp(targetPitch, -89.0f, 89.0f);
 		mPitch = std::lerp(mPitch, targetPitch, 10.f * dt);
 		mYaw = std::lerp(mYaw, targetYaw, 10.f * dt);
-
-		mPitch = std::clamp(mPitch, -89.0f, 89.0f);
 
 		float forwardX = std::cos(glm::radians(mYaw)) * std::cos(glm::radians(mPitch));
 		float forwardY = std::sin(glm::radians(mPitch));

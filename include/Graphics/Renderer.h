@@ -11,7 +11,9 @@ namespace SYCAMORE_NAMESPACE
 	{
 	public:
 		virtual void Setup() = 0;
+
 		virtual void Render() = 0;
+
 		virtual void Draw(TMeshComponent& target) = 0;
 
 		TNotifyDispatcher OnRender;
@@ -22,7 +24,9 @@ namespace SYCAMORE_NAMESPACE
 	{
 	public:
 		void Setup() override;
+
 		void Render() override;
+
 		void Draw(TMeshComponent& target) override;
 	};
 }

@@ -13,11 +13,15 @@ namespace SYCAMORE_NAMESPACE
 	{
 	public:
 		TTexture(GLint internalFormat, GLsizei width, GLsizei height, GLenum format, GLenum type, const void* data);
+
 		TTexture(TTexture& other) = delete;
+
 		TTexture& operator=(TTexture& other) = delete;
+
 		~TTexture();
 
 		static std::shared_ptr<TTexture<Type>> Load(const char* path);
+
 		/**
 		* @param level - The texture's level of detail / mip-map level
 		* @param internalFormat - The number of components in each pixel

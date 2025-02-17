@@ -14,15 +14,20 @@ namespace SYCAMORE_NAMESPACE
 	typedef int TGameObjectId;
 
 
+	class TScene;
+
+
 	class TGameObject
 	{
 		typedef TGameObject Super;
 
 	public:
 		TGameObject();
+
 		virtual ~TGameObject();
 
 		virtual void BeginPlay();
+
 		virtual void Update(float dt);
 
 		template<typename ComponentType, typename... ArgType>
@@ -34,11 +39,21 @@ namespace SYCAMORE_NAMESPACE
 			mComponents[typeid(ComponentType)] = new ComponentType(constructorArgs...);
 		}
 
+		FORCEINLINE TScene* GetScene() const
+		{
+			return mScene;
+		}
+
+		void SetScene(TScene* scene);
+
 		TTransform Transform;
+
 		TGameObjectId Id;
+
 		std::unique_ptr<TEventListener<float>> OnUpdate;
 
 	private:
 		std::unordered_map<std::type_index, TGameComponent*> mComponents;
+		TScene* mScene;
 	};
 }

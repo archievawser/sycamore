@@ -12,6 +12,7 @@ namespace SYCAMORE_NAMESPACE
 	{
 	public:
 		TMaterial();
+
 		TMaterial(TShader* shader);
 
 		void SetTexture(std::string&& uniformName, int slot, std::shared_ptr<TTexture2D> texture);

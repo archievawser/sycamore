@@ -21,8 +21,6 @@ namespace SYCAMORE_NAMESPACE
 		mWindow = CreateWindow(title, width, height);
 		Input = new TInput(mWindow);
 
-		Renderer.Setup();
-
 		SetupEvents();
 
 		GApp = this;
@@ -31,7 +29,6 @@ namespace SYCAMORE_NAMESPACE
 
 	TApp::~TApp()
 	{
-		delete CurrentCamera;
 	}
 
 
@@ -47,9 +44,6 @@ namespace SYCAMORE_NAMESPACE
 
 	void TApp::SetupEvents()
 	{
-		OnUpdateListener = OnUpdate.Connect(std::bind_front(&TApp::Update, this));
-		OnRenderListener = Renderer.OnRender.Connect(std::bind_front(&TApp::Render, this));
-		Input->OnUpdateListener = OnUpdate.Connect(std::bind_front(&TInput::Update, Input));
 	}
 
 
@@ -64,8 +58,6 @@ namespace SYCAMORE_NAMESPACE
 
 	void TApp::Start()
 	{
-		CurrentCamera = new TCamera;
-
 		while (!ShouldClose())
 		{
 			Tick();
@@ -83,10 +75,11 @@ namespace SYCAMORE_NAMESPACE
 		float deltaTime = frameTimer.GetElapsed();
 		frameTimer.Restart();
 
-		OnUpdate.Dispatch(deltaTime);
-
-		// Begin drawing
-		Renderer.Render();
+		if (CurrentScene)
+		{
+			CurrentScene->OnUpdate.Dispatch(deltaTime);
+			CurrentScene->Renderer.Render();
+		}
 	
 		glfwSwapBuffers(mWindow);
 	}

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 #include <string>
 #include <stdexcept>
@@ -176,7 +178,6 @@ namespace SYCAMORE_NAMESPACE
 
 			vertices[i] = { position, uv, normal };
 		}
-
 
 		TGeometry* result = new TGeometry(vertices, mesh->mNumVertices, indices, indicesPerFace * mesh->mNumFaces);
 		delete[] indices;
