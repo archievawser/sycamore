@@ -1,4 +1,4 @@
-FYI - this project isn't close to being completed yet, it's for personal use only currently.
+FYI - this project isn't completed yet, it's for personal use only currently.
 
 # Example scene
 
